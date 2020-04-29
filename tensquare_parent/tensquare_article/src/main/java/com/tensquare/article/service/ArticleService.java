@@ -26,6 +26,7 @@ public class ArticleService {
     /*Spring-data-redis是spring大家族的一部分，提供了在srping应用中通过简单的配置访问 redis服务，
     对reids底层开发包(Jedis,  JRedis, and RJC)进行了高度封装，RedisTemplate 提供了redis各种操作。
 */
+    //redismanager显示出现乱码  后端配置config
     //在jpa执行修改的时候要加事务否则报错 不执行
     /**
      * 文章点赞功能
@@ -34,6 +35,7 @@ public class ArticleService {
     @Transactional
     public void updatethumbup(String id){
         articleDao.updatethumbup(id);
+        redisTemplate.delete("article_" + id);
     }
 
     /**
@@ -44,11 +46,13 @@ public class ArticleService {
     public void examine(String id){
         //注意这块如果id查不到值是会报错的,但是实际情况下既然是审核就肯定会有id的值
         Article article = articleDao.findById(id).get();
-            article.setState("1");
+        article.setState("1");
+        redisTemplate.delete("article_" + article.getId());
+
     }
 
     /**
-     * 根据文章id查询 并使用redis技术做缓存
+     * 根据文章id查询 并使用redis技术做缓存 注意一旦文章修改或者删除了那么redis中的数据也应该删除
      * @param id
      * @return
      */
