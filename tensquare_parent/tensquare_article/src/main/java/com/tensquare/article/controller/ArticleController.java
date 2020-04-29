@@ -1,6 +1,7 @@
 package com.tensquare.article.controller;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import com.tensquare.article.pojo.Article;
 import com.tensquare.article.service.ArticleService;
 import entity.Result;
 import entity.StatusCode;
@@ -40,6 +41,12 @@ public class ArticleController {
     public Result examine(@PathVariable String id){
         articleService.examine(id);
         return new Result(true,StatusCode.OK,"文章审核通过");
+    }
+
+    @GetMapping("/findById/{id}")
+    public Result findById(@PathVariable String id){
+        Article article = articleService.findById(id);
+        return new Result(true,StatusCode.OK,"查询成功",article);
     }
 
 }
