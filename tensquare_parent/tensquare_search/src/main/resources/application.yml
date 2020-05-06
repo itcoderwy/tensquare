@@ -1,8 +1,13 @@
 server:
   port: 9007
+  ssl:
+    key-store: classpath:tomcat.keystore
+    key-store-type: JKS
+    key-alias: tomcat
+    key-store-password: 123456
 spring:
   application:
     name: tensquare-search
   data:
     elasticsearch:
-      cluster-nodes: 127.0.0.1:9300
+      cluster-nodes: 192.168.48.128:9300
