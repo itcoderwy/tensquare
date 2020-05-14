@@ -1,4 +1,4 @@
-package com.tensquare.search.config;
+package com.tensquare.article.config;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;

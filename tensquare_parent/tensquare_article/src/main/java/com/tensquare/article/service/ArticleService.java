@@ -1,5 +1,6 @@
 package com.tensquare.article.service;
 
+import com.google.gson.Gson;
 import com.tensquare.article.dao.ArticleDao;
 import com.tensquare.article.pojo.Article;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class ArticleService {
     private ArticleDao articleDao;
     @Autowired
     private RedisTemplate redisTemplate;
+    //定义字符串数据
+    private final String  project = "kkkkkkkk";
     /*Spring-data-redis是spring大家族的一部分，提供了在srping应用中通过简单的配置访问 redis服务，
     对reids底层开发包(Jedis,  JRedis, and RJC)进行了高度封装，RedisTemplate 提供了redis各种操作。
 */
@@ -57,6 +60,7 @@ public class ArticleService {
      * @return
      */
     public Article findById(String id){
+        Gson gson = new Gson();
         //先在redis里查询是否存在这一个实体 如果存在那么直接返回就ok
         Article article =(Article)redisTemplate.opsForValue().get("article_" + id);
          //要是没有在数据库里面查询出来返回再保存redis里一份
@@ -65,7 +69,17 @@ public class ArticleService {
             if(byId.isPresent()){
                 article = byId.get();
                 redisTemplate.opsForValue().set("article_" + article.getId(),article,1, TimeUnit.DAYS);
+                redisTemplate.opsForValue().set(project+":user:demo",article,1, TimeUnit.DAYS);
             }
+        }else{
+            Article article1 =(Article)redisTemplate.opsForValue().get("article_1");
+            Object o = redisTemplate.opsForValue().get("project:user:demo");
+            Object o1 = redisTemplate.opsForValue().get(project + ":user:demo");
+            Object o2 = redisTemplate.opsForValue().get("kkkkkkkk:user:demo");
+            System.out.println("redis分层取值o:"+o);
+            System.out.println("redis分层取值o1:"+o1);
+            System.out.println("redis分层取值o2:"+o2);
+            System.out.println("在redis里取数据"+article1.toString());
         }
         return article;
     }

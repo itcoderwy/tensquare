@@ -1,6 +1,5 @@
 package com.tensquare.article.controller;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.tensquare.article.pojo.Article;
 import com.tensquare.article.service.ArticleService;
 import entity.Result;
