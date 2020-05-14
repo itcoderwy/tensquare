@@ -169,4 +169,27 @@ public class Article implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id='" + id + '\'' +
+                ", columnid='" + columnid + '\'' +
+                ", userid='" + userid + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", createtime=" + createtime +
+                ", updatetime=" + updatetime +
+                ", ispublic='" + ispublic + '\'' +
+                ", istop='" + istop + '\'' +
+                ", visits=" + visits +
+                ", thumbup=" + thumbup +
+                ", comment=" + comment +
+                ", state='" + state + '\'' +
+                ", channelid='" + channelid + '\'' +
+                ", url='" + url + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

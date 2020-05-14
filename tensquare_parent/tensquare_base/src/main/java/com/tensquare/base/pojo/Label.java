@@ -72,4 +72,16 @@ public class Label implements Serializable {
     public void setRecommend(String recommend) {
         this.recommend = recommend;
     }
+
+    @Override
+    public String toString() {
+        return "Label{" +
+                "id='" + id + '\'' +
+                ", labelname='" + labelname + '\'' +
+                ", state='" + state + '\'' +
+                ", count=" + count +
+                ", fans=" + fans +
+                ", recommend='" + recommend + '\'' +
+                '}';
+    }
 }
